@@ -84,8 +84,11 @@ app.get('/deployment', (req, res) => {
 app.get('/daemonset', (req, res) => {
   k8sApi2.listNamespacedDaemonSet(process.env.SPEKT8_NAMESPACE)
     .then((re) => {
-      res.json(re.body);
-    });
+      return res.status(200).json(re.body);
+    })
+    .catch((err) => {
+      res.send(err);
+    })
 });
 
 
